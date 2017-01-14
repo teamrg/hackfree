@@ -40,7 +40,9 @@ def update(dt):
 	if len(lives) != entities[0].health:
 		lives = []
 		for i in range(entities[0].health):
-			lives.append(pyglet.sprite.Sprite(player_tex, batch = batch, x = i * 32, y = 16, width = 16, height = 16, group = foreground))
+			life = pyglet.sprite.Sprite(player_tex, batch = batch, x = i * 48, y = 16, group = foreground)
+			life.scale = 0.5
+			lives.append(life)
 	for sprite in bkg:
 		sprite.y += fall_speed
 		if sprite.y % bkg_tile_height == 0:
