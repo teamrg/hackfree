@@ -3,18 +3,18 @@ import pyglet
 import entity
 from entity import *
 
-window = pyglet.window.Window()
+window = pyglet.window.Window(height = 700)
 
-fall_speed = 2
+fall_speed = 1
 bkg_tile_height = 32
 
 alien_tex = pyglet.image.load('img/alien.png')
 cloud_tex = pyglet.image.load('img/cloud.png')
 player_tex = pyglet.image.load('img/rover.png')
 
-entities = [Entity(player_tex, entity.PLAYER, 320, 400, 32, 32),
-		Entity(pyglet.image.load('img/image.png'), entity.ENEMY, 8, 100, 32, 32),
-		Entity(alien_tex, entity.ALIEN, 100, 100, 64, 32)]
+entities = [Entity(player_tex, entity.PLAYER, window.width / 2, window.height - 80, 32, 32),
+		Entity(pyglet.image.load('img/image.png'), entity.ENEMY, 8, 0, 32, 32),
+		Entity(alien_tex, entity.ALIEN, 100, 0, 64, 32)]
 lives = []
 entities[0].health = 3
 bkg = []
@@ -23,8 +23,8 @@ def add_background(image):
 	global bkg
 	bkg = []
 	bkg_tile_height = image.height
-	for i in range(0, 640, image.width):
-		for j in range(-image.height, 480, image.height):
+	for i in range(0, window.width, image.width):
+		for j in range(-image.height, window.height + image.height, image.height):
 			bkg.append(pyglet.sprite.Sprite(image, batch= batch, x = i, y = j, group = background))
 add_background(pyglet.image.load('img/space.png'))
 
@@ -40,7 +40,7 @@ def update(dt):
 	if len(lives) != entities[0].health:
 		lives = []
 		for i in range(entities[0].health):
-			life = pyglet.sprite.Sprite(player_tex, batch = batch, x = i * 48, y = 16, group = foreground)
+			life = pyglet.sprite.Sprite(player_tex, batch = batch, x = i * 32, y = 16, group = foreground)
 			life.scale = 0.5
 			lives.append(life)
 	for sprite in bkg:

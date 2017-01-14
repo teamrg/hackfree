@@ -56,5 +56,5 @@ class Entity(object):
 				self.velocity.x = -6
 			self.velocity.y = 2
 		else:
-			self.velocity.y = 2
+			self.velocity.y = 1
 
