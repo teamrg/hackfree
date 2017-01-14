@@ -49,12 +49,12 @@ class Entity(object):
 					self.sprite.opacity = 255
 		elif self.affiliation == ALIEN:
 			if self.velocity.x == 0:
-				self.velocity.x = 2
+				self.velocity.x = 6
 			if self.x < 64:
-				self.velocity.x = 2
+				self.velocity.x = 6
 			elif self.x > 640 - 64:
-				self.velocity.x = -2
-			self.velocity.y = 8
+				self.velocity.x = -6
+			self.velocity.y = 2
 		else:
-			self.velocity.y = 4
+			self.velocity.y = 2
 
