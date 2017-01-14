@@ -9,6 +9,7 @@ fall_speed = 2
 bkg_tile_height = 32
 
 alien_tex = pyglet.image.load('img/alien.png')
+cloud_tex = pyglet.image.load('img/cloud.png')
 
 entities = [Entity(pyglet.image.load('img/rover.png'), entity.PLAYER, 320, 400, 32, 32),
 		Entity(pyglet.image.load('img/image.png'), entity.ENEMY, 8, 100, 32, 32),
@@ -27,6 +28,10 @@ add_background(pyglet.image.load('img/space.png'))
 
 def spawn_alien(x):
 	entities.append(Entity(alien_tex, entity.ALIEN, x, 0, 64, 32))
+def spawn_cloud(x):
+	entities.append(Entity(cloud_tex, entity.ENEMY, x, 0, 64, 16))
+
+spawn_cloud(400)
 
 def update(dt):
 	for sprite in bkg:
