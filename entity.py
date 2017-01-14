@@ -3,6 +3,7 @@ import pyglet
 batch = pyglet.graphics.Batch()
 PLAYER = 0
 ENEMY = 1
+ALIEN = 2
 
 class Vector(object):
 	def __init__(self, x = 0, y = 0):
@@ -33,13 +34,21 @@ class Entity(object):
 		self.y += self.velocity.y
 		self.sprite.x = self.x
 		self.sprite.y = self.y
-		for ent in entities:
-			if ent.affiliation == ENEMY and self.affiliation == PLAYER and (self.overlaps(ent) or ent.overlaps(self)) and self.iframes <= 0:
-				self.health -= 1	
-				self.iframes = 60
-				self.sprite.opacity = 128
-		if self.iframes > 0:
-			self.iframes -= 1
-			if self.iframes == 0:
-				self.sprite.opacity = 255
+		if self.affiliation == PLAYER:
+			for ent in entities:
+				if ent.affiliation != PLAYER and (self.overlaps(ent) or ent.overlaps(self)) and self.iframes <= 0:
+					self.health -= 1	
+					self.iframes = 60
+					self.sprite.opacity = 128
+			if self.iframes > 0:
+				self.iframes -= 1
+				if self.iframes == 0:
+					self.sprite.opacity = 255
+		elif self.affiliation == ALIEN:
+			if self.velocity.x == 0:
+				self.velocity.x = 2
+			if self.x < 64:
+				self.velocity.x = 2
+			elif self.x > 640 - 64:
+				self.velocity.x = -2
 

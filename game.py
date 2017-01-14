@@ -5,7 +5,8 @@ from entity import Entity, batch
 
 window = pyglet.window.Window()
 entities = [Entity(pyglet.image.load('img/rover.png'), entity.PLAYER, 0, 480, 32, 32),
-		Entity(pyglet.image.load('img/image.png'), entity.ENEMY, 8, 100, 32, 32)]
+		Entity(pyglet.image.load('img/image.png'), entity.ENEMY, 8, 100, 32, 32),
+		Entity(pyglet.image.load('img/alien.png'), entity.ALIEN, 100, 100, 64, 32)]
 entities[0].velocity.y = -1
 entities[0].health = 3
 
