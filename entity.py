@@ -23,6 +23,7 @@ class Entity(object):
 		self.acceleration = Vector(0, 0)
 		self.health = 1
 		self.affiliation = affiliation
+		self.iframes = 0
 	def overlaps(self, other):
 		return (self.x < other.x + other.width and self.x + self.width > other.width and 
 			self.y < other.y + other.height and self.y + self.height > other.y)
@@ -33,5 +34,12 @@ class Entity(object):
 		self.sprite.x = self.x
 		self.sprite.y = self.y
 		for ent in entities:
-			if ent.affiliation == ENEMY and self.affiliation == PLAYER and (self.overlaps(ent) or ent.overlaps(self)):
+			if ent.affiliation == ENEMY and self.affiliation == PLAYER and (self.overlaps(ent) or ent.overlaps(self)) and self.iframes <= 0:
 				self.health -= 1	
+				self.iframes = 60
+				self.sprite.opacity = 128
+		if self.iframes > 0:
+			self.iframes -= 1
+			if self.iframes == 0:
+				self.sprite.opacity = 255
+
