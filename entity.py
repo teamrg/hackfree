@@ -33,5 +33,5 @@ class Entity(object):
 		self.sprite.x = self.x
 		self.sprite.y = self.y
 		for ent in entities:
-			if ent.affiliation != self.affiliation and self.overlaps(ent):
+			if ent.affiliation == ENEMY and self.affiliation == PLAYER and (self.overlaps(ent) or ent.overlaps(self)):
 				self.health -= 1	
