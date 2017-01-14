@@ -54,4 +54,7 @@ class Entity(object):
 				self.velocity.x = 2
 			elif self.x > 640 - 64:
 				self.velocity.x = -2
+			self.velocity.y = 8
+		else:
+			self.velocity.y = 4
 
