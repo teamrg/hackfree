@@ -5,6 +5,9 @@ PLAYER = 0
 ENEMY = 1
 ALIEN = 2
 
+background = pyglet.graphics.OrderedGroup(0)
+foreground = pyglet.graphics.OrderedGroup(1)
+
 class Vector(object):
 	def __init__(self, x = 0, y = 0):
 		self.x = x
@@ -15,7 +18,7 @@ class Vector(object):
 		return self
 class Entity(object):
 	def __init__(self, image, affiliation, x = 0, y = 0, width = 0, height = 0):
-		self.sprite = pyglet.sprite.Sprite(image, batch = batch)
+		self.sprite = pyglet.sprite.Sprite(image, batch = batch, group = foreground)
 		self.x = x
 		self.y = y
 		self.width = width

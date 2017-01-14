@@ -1,14 +1,24 @@
 import pyglet
 
 import entity
-from entity import Entity, batch
+from entity import Entity, batch, background
 
 window = pyglet.window.Window()
+
 entities = [Entity(pyglet.image.load('img/rover.png'), entity.PLAYER, 0, 480, 32, 32),
 		Entity(pyglet.image.load('img/image.png'), entity.ENEMY, 8, 100, 32, 32),
 		Entity(pyglet.image.load('img/alien.png'), entity.ALIEN, 100, 100, 64, 32)]
 entities[0].velocity.y = -1
 entities[0].health = 3
+bkg = []
+
+def add_background(image):
+	global bkg
+	bkg = []
+	for i in range(0, 640, image.width):
+		for j in range(0, 480, image.height):
+			bkg.append(pyglet.sprite.Sprite(image, batch= batch, x = i, y = j, group = background))
+add_background(pyglet.image.load('img/space.png'))
 
 def update(dt):
 	global entities
