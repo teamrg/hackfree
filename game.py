@@ -1,11 +1,16 @@
 import pyglet
 
+from entity import Entity, batch
+
 window = pyglet.window.Window()
-label = pyglet.text.Label('Hello, world', font_name='Times New Roman', font_size=36, 
-		x=window.width//2, y=window.height//2, anchor_x='center', anchor_y='center')
+entities = [Entity(pyglet.image.load('img/image.png'), 0, 0, 32, 32)]
+def update(dt):
+	for ent in entities:
+		ent.update(entities)
+pyglet.clock.schedule_interval(update, 1 / 60.0)
 @window.event
 def on_draw():
 	window.clear()
-	label.draw()
+	batch.draw()
 pyglet.app.run()
 
