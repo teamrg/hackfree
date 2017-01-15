@@ -120,11 +120,19 @@ def music_step_happened(dt):
         else:
             spawn_enemy()
 """	elif step == 2:
-		spawn_powerup(random.randint(0, window.width))"""
+		spawn"_powerup(random.randint(0, window.width))"""
+label = pyglet.text.Label('Game Over',
+                          font_name='Inconsolata',
+                          font_size=36,
+                          x=window.width//2, y=window.height//2,
+                          anchor_x='center', anchor_y='center')
 @window.event
 def on_draw():
-	window.clear()
-	batch.draw()
+    window.clear()
+    if entities[0].affilation != entity.PLAYER:
+        label.draw()
+    else:
+    	batch.draw()
 song = pyglet.media.load(sys.argv[1], streaming=False)
 song.play()
 pyglet.clock.schedule_interval(update, 1 / 60.0)
