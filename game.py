@@ -117,7 +117,7 @@ def on_key_release(symbol, modifiers):
 		set_player_sprite(player_l_tex)
 	if symbol == pyglet.window.key.SPACE:
 		spawn_player_bullet()
-def music_step_happened():
+def music_step_happened(dt):
 	step = music.clusters.pop(0)
 	if step == 0:
 		pass
