@@ -49,7 +49,7 @@ spawn_cloud(400)
 spawn_bullet(100)
 
 def update(dt):
-	global lives, entities
+	global lives, entities, joystick
 	if len(lives) != entities[0].health:
 		lives = []
 		for i in range(entities[0].health):
@@ -64,11 +64,32 @@ def update(dt):
 		ent.update(entities)
 	if len(entities) < 3:
 		spawn_alien(320)
+	value = joystick.x
+	if value > 0.2:
+		set_player_sprite(player_boost_tex)
+		entities[0].flip = False
+	elif value < -0.2:
+		set_player_sprite(player_boost_l_tex)
+		entities[0].flip = True
+	else:
+		if entities[0].flip:
+			set_player_sprite(player_l_tex)
+		else:
+			set_player_sprite(player_tex)
+	entities[0].velocity.x = 4 * value
 	entities = list(filter(lambda x: x.health > 0 and x.y < window.height, entities))
 
 pyglet.clock.schedule_interval(update, 1 / 60.0)
 def set_player_sprite(img):
 	entities[0].sprite = pyglet.sprite.Sprite(img, x = entities[0].x, y = entities[0].y, batch = batch, group = foreground)
+joysticks = pyglet.input.get_joysticks()
+if len(joysticks) > 0:
+	joystick = joysticks[0]
+	joystick.open()
+	@joystick.event
+	def on_joybutton_press(joystick, button):
+		spawn_player_bullet()
+
 @window.event
 def on_key_press(symbol, modifiers):
 	if symbol == pyglet.window.key.D:

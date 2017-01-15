@@ -30,6 +30,7 @@ class Entity(object):
 		self.affiliation = affiliation
 		self.iframes = 0
 		self.delay = 0
+		self.flip = False
 	def overlaps(self, other):
 		return (self.x < other.x + other.width and self.x + self.width > other.width and 
 			self.y < other.y + other.height and self.y + self.height > other.y)
