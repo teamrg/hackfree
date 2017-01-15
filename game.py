@@ -129,7 +129,7 @@ label = pyglet.text.Label('Game Over',
 @window.event
 def on_draw():
     window.clear()
-    if entities[0].affilation != entity.PLAYER:
+    if entities[0].affiliation != entity.PLAYER:
         label.draw()
     else:
     	batch.draw()
