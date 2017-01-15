@@ -9,3 +9,4 @@ A game controller is necessary.
 
 Dependencies:
 scikit-learn
+pyglet
