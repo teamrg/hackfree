@@ -89,8 +89,6 @@ def update(dt):
 			set_player_sprite(player_tex)
 	entities[0].velocity.x = 4 * value
 	entities = list(filter(lambda x: x.health > 0 and x.y < window.height, entities))
-
-pyglet.clock.schedule_interval(update, 1 / 60.0)
 def set_player_sprite(img):
 	entities[0].sprite = pyglet.sprite.Sprite(img, x = entities[0].x, y = entities[0].y, batch = batch, group = foreground)
 joysticks = pyglet.input.get_joysticks()
@@ -127,13 +125,13 @@ def music_step_happened():
 		spawn_enemy()
 	elif step == 2:
 		spawn_powerup(random.randint(0, window.width))
-pyglet.clock.schedule_interval(music_step_happened, 40 * 0.001)
-
 @window.event
 def on_draw():
 	window.clear()
 	batch.draw()
 song = pyglet.media.load(sys.argv[1])
 song.play()
+pyglet.clock.schedule_interval(update, 1 / 60.0)
+pyglet.clock.schedule_interval(music_step_happened, 40 * 0.001)
 pyglet.app.run()
 
