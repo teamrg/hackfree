@@ -1,4 +1,5 @@
 import pyglet
+import random
 
 import entity
 from entity import *
@@ -16,6 +17,7 @@ player_bullet_tex = pyglet.image.load('img/player-bullet.png')
 alien_tex = pyglet.image.load('img/alien.png')
 cloud_tex = pyglet.image.load('img/cloud.png')
 bullet_tex = pyglet.image.load('img/bullet.png')
+powerup_tex = pyglet.image.load('img/powerup.png')
 
 entities = [Entity(player_tex, entity.PLAYER, window.width / 2, window.height - 80, 64, 64),
 		Entity(alien_tex, entity.ALIEN, 100, 0, 64, 8)]
@@ -44,6 +46,13 @@ def spawn_player_bullet():
 	entities.append(ent)
 def spawn_cloud(x):
 	entities.append(Entity(cloud_tex, entity.ENEMY, x, 0, 64, 48))
+def spawn_powerup(x):
+	ent = Entity(powerup_tex, entity.POWERUP, x, 0, 16, 16)
+def spawn_enemy():
+	value = random.randint(0, 2)
+	x = random.randint(0, window.width)
+	spawns = [ spawn_alien, spawn_bullet, spawn_cloud]
+	spawns[value](x)
 
 spawn_cloud(400)
 spawn_bullet(100)

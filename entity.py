@@ -5,6 +5,7 @@ PLAYER = 0
 ENEMY = 1
 ALIEN = 2
 FRIENDLY = 3
+POWERUP = 4
 
 background = pyglet.graphics.OrderedGroup(0)
 foreground = pyglet.graphics.OrderedGroup(1)
