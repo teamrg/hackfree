@@ -1,8 +1,6 @@
-import wave, struct, sys, os
+import wave, struct, os
 import numpy as np
 import scipy.io.wavfile as wf
-import matplotlib.pyplot as plt
-from time import time
 def wav_to_amps(filename):
     w = wave.open(filename, 'r') #open wave file as read only
     fr = w.getframerate() #need this for segmentation later
@@ -37,6 +35,5 @@ def procdir(txtfl):
             t0 = time()
             proc, r = wav_to_amps(f)
             final += transform(proc,r)
-            print(time()-t0)
     np.savetxt(txtfl, final)
 
