@@ -12,9 +12,8 @@ alien_tex = pyglet.image.load('img/alien.png')
 cloud_tex = pyglet.image.load('img/cloud.png')
 player_tex = pyglet.image.load('img/rover.png')
 
-entities = [Entity(player_tex, entity.PLAYER, window.width / 2, window.height - 80, 32, 32),
-		Entity(pyglet.image.load('img/image.png'), entity.ENEMY, 8, 0, 32, 32),
-		Entity(alien_tex, entity.ALIEN, 100, 0, 64, 32)]
+entities = [Entity(player_tex, entity.PLAYER, window.width / 2, window.height - 80, 64, 64),
+		Entity(alien_tex, entity.ALIEN, 100, 0, 64, 8)]
 lives = []
 entities[0].health = 3
 bkg = []
@@ -29,9 +28,9 @@ def add_background(image):
 add_background(pyglet.image.load('img/space.png'))
 
 def spawn_alien(x):
-	entities.append(Entity(alien_tex, entity.ALIEN, x, 0, 64, 32))
+	entities.append(Entity(alien_tex, entity.ALIEN, x, 0, 64, 8))
 def spawn_cloud(x):
-	entities.append(Entity(cloud_tex, entity.ENEMY, x, 0, 64, 16))
+	entities.append(Entity(cloud_tex, entity.ENEMY, x, 0, 64, 48))
 
 spawn_cloud(400)
 

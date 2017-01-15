@@ -39,7 +39,7 @@ class Entity(object):
 		self.sprite.y = self.y
 		if self.affiliation == PLAYER:
 			for ent in entities:
-				if ent.affiliation != PLAYER and (self.overlaps(ent) or ent.overlaps(self)) and self.iframes <= 0:
+				if ent.affiliation != PLAYER and (self.overlaps(ent)) and self.iframes <= 0:
 					self.health -= 1	
 					self.iframes = 60
 					self.sprite.opacity = 128
