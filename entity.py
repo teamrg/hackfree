@@ -55,6 +55,6 @@ class Entity(object):
 			elif self.x > 640 - 64:
 				self.velocity.x = -6
 			self.velocity.y = 2
-		else:
+		elif self.velocity.y == 0:
 			self.velocity.y = 1
 

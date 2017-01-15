@@ -14,6 +14,7 @@ player_boost_tex = pyglet.image.load('img/rover-boost.png')
 player_boost_l_tex = pyglet.image.load('img/rover-boost-left.png')
 alien_tex = pyglet.image.load('img/alien.png')
 cloud_tex = pyglet.image.load('img/cloud.png')
+bullet_tex = pyglet.image.load('img/bullet.png')
 
 entities = [Entity(player_tex, entity.PLAYER, window.width / 2, window.height - 80, 64, 64),
 		Entity(alien_tex, entity.ALIEN, 100, 0, 64, 8)]
@@ -32,10 +33,15 @@ add_background(pyglet.image.load('img/space.png'))
 
 def spawn_alien(x):
 	entities.append(Entity(alien_tex, entity.ALIEN, x, 0, 64, 8))
+def spawn_bullet(x):
+	ent = Entity(bullet_tex, entity.ENEMY, x, 0, 8, 8)
+	ent.velocity.y = 8
+	entities.append(ent)
 def spawn_cloud(x):
 	entities.append(Entity(cloud_tex, entity.ENEMY, x, 0, 64, 48))
 
 spawn_cloud(400)
+spawn_bullet(100)
 
 def update(dt):
 	global lives, entities

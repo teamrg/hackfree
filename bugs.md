@@ -1,0 +1,1 @@
+- The game assumes the first entity is the player, and in the abscence of a player makes the next entity in the list a psuedo-player
