@@ -12,6 +12,7 @@ player_tex = pyglet.image.load('img/rover.png')
 player_l_tex = pyglet.image.load('img/rover-left.png')
 player_boost_tex = pyglet.image.load('img/rover-boost.png')
 player_boost_l_tex = pyglet.image.load('img/rover-boost-left.png')
+player_bullet_tex = pyglet.image.load('img/player-bullet.png')
 alien_tex = pyglet.image.load('img/alien.png')
 cloud_tex = pyglet.image.load('img/cloud.png')
 bullet_tex = pyglet.image.load('img/bullet.png')
@@ -36,6 +37,10 @@ def spawn_alien(x):
 def spawn_bullet(x):
 	ent = Entity(bullet_tex, entity.ENEMY, x, 0, 8, 8)
 	ent.velocity.y = 8
+	entities.append(ent)
+def spawn_player_bullet():
+	ent = Entity(player_bullet_tex, entity.FRIENDLY, entities[0].x, entities[0].y, 8, 8)
+	ent.velocity.y = -4
 	entities.append(ent)
 def spawn_cloud(x):
 	entities.append(Entity(cloud_tex, entity.ENEMY, x, 0, 64, 48))
@@ -80,6 +85,8 @@ def on_key_release(symbol, modifiers):
 	if symbol == pyglet.window.key.A:
 		entities[0].velocity.x = 0
 		set_player_sprite(player_l_tex)
+	if symbol == pyglet.window.key.SPACE:
+		spawn_player_bullet()
 @window.event
 def on_draw():
 	window.clear()

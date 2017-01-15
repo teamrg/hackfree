@@ -4,6 +4,7 @@ batch = pyglet.graphics.Batch()
 PLAYER = 0
 ENEMY = 1
 ALIEN = 2
+FRIENDLY = 3
 
 background = pyglet.graphics.OrderedGroup(0)
 foreground = pyglet.graphics.OrderedGroup(1)
@@ -28,6 +29,7 @@ class Entity(object):
 		self.health = 1
 		self.affiliation = affiliation
 		self.iframes = 0
+		self.delay = 0
 	def overlaps(self, other):
 		return (self.x < other.x + other.width and self.x + self.width > other.width and 
 			self.y < other.y + other.height and self.y + self.height > other.y)
@@ -39,7 +41,7 @@ class Entity(object):
 		self.sprite.y = self.y
 		if self.affiliation == PLAYER:
 			for ent in entities:
-				if ent.affiliation != PLAYER and (self.overlaps(ent)) and self.iframes <= 0:
+				if ent.affiliation != PLAYER and ent.affiliation != FRIENDLY and (self.overlaps(ent)) and self.iframes <= 0:
 					self.health -= 1	
 					self.iframes = 60
 					self.sprite.opacity = 128
@@ -47,6 +49,11 @@ class Entity(object):
 				self.iframes -= 1
 				if self.iframes == 0:
 					self.sprite.opacity = 255
+		elif self.affiliation == FRIENDLY:
+			for ent in entities:
+				if ent.affiliation != PLAYER and ent.affiliation != FRIENDLY and (self.overlaps(ent)):
+					ent.health -= 1
+					self.health = 0
 		elif self.affiliation == ALIEN:
 			if self.velocity.x == 0:
 				self.velocity.x = 6
