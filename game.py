@@ -56,9 +56,6 @@ def spawn_enemy():
 	spawns = [ spawn_alien, spawn_bullet, spawn_cloud]
 	spawns[value](x)
 
-spawn_cloud(400)
-spawn_bullet(100)
-
 def update(dt):
 	global lives, entities, joystick
 	if len(lives) != entities[0].health:
@@ -73,8 +70,6 @@ def update(dt):
 			sprite.y -= bkg_tile_height
 	for ent in entities:
 		ent.update(entities)
-	if len(entities) < 3:
-		spawn_alien(320)
 	value = joystick.x
 	if value > 0.2:
 		set_player_sprite(player_boost_tex)
@@ -117,6 +112,7 @@ def on_key_release(symbol, modifiers):
 		set_player_sprite(player_l_tex)
 	if symbol == pyglet.window.key.SPACE:
 		spawn_player_bullet()
+
 def music_step_happened(dt):
 	step = music.clusters.pop(0)
 	if step == 0:
@@ -132,6 +128,7 @@ def on_draw():
 song = pyglet.media.load(sys.argv[1])
 song.play()
 pyglet.clock.schedule_interval(update, 1 / 60.0)
-pyglet.clock.schedule_interval(music_step_happened, 40 * 0.001)
+n = 4
+pyglet.clock.schedule_interval(music_step_happened, n * 40 * 0.001)
 pyglet.app.run()
 
