@@ -7,7 +7,7 @@ from entity import *
 import music
 
 window = pyglet.window.Window(height = 700)
-
+pyglet.options['audio'] = ('openal', 'pulse', 'silent')
 fall_speed = 1
 bkg_tile_height = 32
 
@@ -115,7 +115,6 @@ def on_key_release(symbol, modifiers):
 
 def music_step_happened(dt):
 	step = music.clusters.pop(0)
-	print(step)
 	if step == 0:
 		pass
 	elif step == 1:
@@ -126,7 +125,7 @@ def music_step_happened(dt):
 def on_draw():
 	window.clear()
 	batch.draw()
-song = pyglet.media.load(sys.argv[1])
+song = pyglet.media.load(sys.argv[1], streaming=False)
 song.play()
 pyglet.clock.schedule_interval(update, 1 / 60.0)
 n = 4

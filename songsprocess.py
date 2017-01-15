@@ -6,12 +6,13 @@ def wav_to_amps(filename):
     fr = w.getframerate() #need this for segmentation later
     astr = w.readframes(w.getnframes()) #get frames
     a = struct.unpack("%ih" % (w.getnframes()*w.getnchannels()), astr) #bit stuff
-    a = [float(val) / pow(2, 15) for val in a] #idk more bit stuff or maybe just make numbers not huge
+    m = max(a) #for normalization
+    a = [float(val) / m for val in a] #normalization
     w.close() #close
     return a, fr; #return amplitudes array and the framerate
 
 def transform(proc, r):
-    l=r*0.04 #segment length of 40ms of frames
+    l=r #segment length of 40ms of frames
     s=[] #contains segment
     samples = [] #all segments in song
     for frame in proc: 
@@ -32,7 +33,6 @@ def procdir(txtfl):
     final = []
     for f in os.listdir():
         if f.endswith('.wav'): #do stuff to every wav in directory
-            t0 = time()
             proc, r = wav_to_amps(f)
             final += transform(proc,r)
     np.savetxt(txtfl, final)
