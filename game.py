@@ -85,6 +85,7 @@ def main():
                 set_player_sprite(player_tex)
         entities[0].velocity.x = 4 * value
         entities = list(filter(lambda x: x.health > 0 and x.y < window.height, entities))
+
     def set_player_sprite(img):
         entities[0].sprite = pyglet.sprite.Sprite(img, x = entities[0].x, y = entities[0].y, batch = batch, group = foreground)
     joysticks = pyglet.input.get_joysticks()
@@ -123,10 +124,18 @@ def main():
             spawn_enemy()
         elif step == 2:
             spawn_powerup(random.randint(0, window.width))
+    label = pyglet.text.Label('Game Over',
+                          font_name='Inconsolata',
+                          font_size=36,
+                          x=window.width//2, y=window.height//2,
+                          anchor_x='center', anchor_y='center')
     @window.event
     def on_draw():
         window.clear()
-        batch.draw()
+        if entities[0].affilitaion == entity.PLAYER:
+            batch.draw()
+        else:
+            label.draw()
     song = pyglet.media.load(sys.argv[1])
     song.play()
     pyglet.clock.schedule_interval(update, 1 / 60.0)
