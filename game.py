@@ -115,6 +115,7 @@ def on_key_release(symbol, modifiers):
 
 def music_step_happened(dt):
 	step = music.clusters.pop(0)
+	print(step)
 	if step == 0:
 		pass
 	elif step == 1:
