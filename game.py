@@ -1,8 +1,10 @@
 import pyglet
 import random
+import sys
 
 import entity
 from entity import *
+import music
 
 window = pyglet.window.Window(height = 700)
 
@@ -117,9 +119,21 @@ def on_key_release(symbol, modifiers):
 		set_player_sprite(player_l_tex)
 	if symbol == pyglet.window.key.SPACE:
 		spawn_player_bullet()
+def music_step_happened():
+	step = music.clusters.pop(0)
+	if step == 0:
+		pass
+	elif step == 1:
+		spawn_enemy()
+	elif step == 2:
+		spawn_powerup(random.randint(0, window.width))
+pyglet.clock.schedule_interval(music_step_happened, 40 * 0.001)
+
 @window.event
 def on_draw():
 	window.clear()
 	batch.draw()
+song = pyglet.media.load(sys.argv[1])
+song.play()
 pyglet.app.run()
 
