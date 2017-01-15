@@ -8,9 +8,12 @@ window = pyglet.window.Window(height = 700)
 fall_speed = 1
 bkg_tile_height = 32
 
+player_tex = pyglet.image.load('img/rover.png')
+player_l_tex = pyglet.image.load('img/rover-left.png')
+player_boost_tex = pyglet.image.load('img/rover-boost.png')
+player_boost_l_tex = pyglet.image.load('img/rover-boost-left.png')
 alien_tex = pyglet.image.load('img/alien.png')
 cloud_tex = pyglet.image.load('img/cloud.png')
-player_tex = pyglet.image.load('img/rover.png')
 
 entities = [Entity(player_tex, entity.PLAYER, window.width / 2, window.height - 80, 64, 64),
 		Entity(alien_tex, entity.ALIEN, 100, 0, 64, 8)]
@@ -35,7 +38,7 @@ def spawn_cloud(x):
 spawn_cloud(400)
 
 def update(dt):
-	global lives
+	global lives, entities
 	if len(lives) != entities[0].health:
 		lives = []
 		for i in range(entities[0].health):
@@ -46,7 +49,6 @@ def update(dt):
 		sprite.y += fall_speed
 		if sprite.y % bkg_tile_height == 0:
 			sprite.y -= bkg_tile_height
-	global entities
 	for ent in entities:
 		ent.update(entities)
 	if len(entities) < 3:
@@ -54,16 +56,24 @@ def update(dt):
 	entities = list(filter(lambda x: x.health > 0 and x.y < window.height, entities))
 
 pyglet.clock.schedule_interval(update, 1 / 60.0)
+def set_player_sprite(img):
+	entities[0].sprite = pyglet.sprite.Sprite(img, x = entities[0].x, y = entities[0].y, batch = batch, group = foreground)
 @window.event
 def on_key_press(symbol, modifiers):
 	if symbol == pyglet.window.key.D:
 		entities[0].velocity.x = 4
+		set_player_sprite(player_boost_tex)
 	if symbol == pyglet.window.key.A:
 		entities[0].velocity.x = -4
+		set_player_sprite(player_boost_l_tex)
 @window.event
 def on_key_release(symbol, modifiers):
-	if symbol == pyglet.window.key.D or symbol == pyglet.window.key.A:
+	if symbol == pyglet.window.key.D:
 		entities[0].velocity.x = 0
+		set_player_sprite(player_tex)
+	if symbol == pyglet.window.key.A:
+		entities[0].velocity.x = 0
+		set_player_sprite(player_l_tex)
 @window.event
 def on_draw():
 	window.clear()
