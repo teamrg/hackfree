@@ -114,13 +114,13 @@ def on_key_release(symbol, modifiers):
 		spawn_player_bullet()
 
 def music_step_happened(dt):
-	step = music.clusters.pop(0)
-	if step == 0:
-		pass
-	elif step == 1:
-		spawn_enemy()
-	elif step == 2:
-		spawn_powerup(random.randint(0, window.width))
+        step = music.clusters.pop(0)
+        if step == 0 or step == 1 or step ==2:
+            pass
+        else:
+            spawn_enemy()
+"""	elif step == 2:
+		spawn_powerup(random.randint(0, window.width))"""
 @window.event
 def on_draw():
 	window.clear()
@@ -128,7 +128,6 @@ def on_draw():
 song = pyglet.media.load(sys.argv[1], streaming=False)
 song.play()
 pyglet.clock.schedule_interval(update, 1 / 60.0)
-n = 4
-pyglet.clock.schedule_interval(music_step_happened, n * 40 * 0.001)
+pyglet.clock.schedule_interval(music_step_happened, 0.25)
 pyglet.app.run()
 

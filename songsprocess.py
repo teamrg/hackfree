@@ -6,13 +6,12 @@ def wav_to_amps(filename):
     fr = w.getframerate() #need this for segmentation later
     astr = w.readframes(w.getnframes()) #get frames
     a = struct.unpack("%ih" % (w.getnframes()*w.getnchannels()), astr) #bit stuff
-    m = max(a) #for normalization
-    a = [float(val) / m for val in a] #normalization
+    a = [float(val) / pow(2,15) for val in a] #normalization
     w.close() #close
     return a, fr; #return amplitudes array and the framerate
 
 def transform(proc, r):
-    l=r #segment length of 40ms of frames
+    l=r*.25 #segment length of .5s of frames
     s=[] #contains segment
     samples = [] #all segments in song
     for frame in proc: 
@@ -23,8 +22,8 @@ def transform(proc, r):
             s = []
     i = 0
     while i < len(samples):
-        samples[i] = np.fft.fft(samples[i]) #fourier transform
-        samples[i] = pow(samples[i].real, 2) + pow(samples[i].imag, 2) #magnitude of power spectrum
+        """samples[i] = np.fft.fft(samples[i]) #fourier transform
+        samples[i] = pow(samples[i].real, 2) + pow(samples[i].imag, 2) #magnitude of power spectrum"""
         samples[i] = [sum(samples[i])]
         i += 1
     return samples

@@ -7,7 +7,7 @@ import sys
 song = sys.argv[1]
 a, b = sp.wav_to_amps(song)
 samples = sp.transform(a,b)
-clf = cluster.KMeans(n_clusters=3).fit(samples)
+clf = cluster.SpectralClustering(n_clusters=4).fit(samples)
 clusters =clf.labels_.tolist() #array of 0s 1s and 2s, a segment every 40ms
 print(clusters)
 #play song
