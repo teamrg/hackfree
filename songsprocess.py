@@ -32,7 +32,7 @@ def transform(proc, r):
 
 def procdir(txtfl):
     final = []
-    for f in os.listdir():
+    for f in os.listdir('./Songs'):
         if f.endswith('.wav'): #do stuff to every wav in directory
             proc, r = wav_to_amps(f)
             final += transform(proc,r)
