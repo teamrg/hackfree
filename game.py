@@ -119,11 +119,12 @@ def on_key_release(symbol, modifiers):
     if symbol == pyglet.window.key.SPACE:
         spawn_player_bullet()
 def music_step_happened(dt):
-        step = music.clusters.pop(0)
-        if step == 0 or step == 1 or step ==2:
-            pass
-        else:
-            spawn_enemy()
+        if music.clusters != []:
+            step = music.clusters.pop(0)
+            if step == 0 or step == 1 or step ==2:
+                pass
+            else:
+                spawn_enemy()
 """	elif step == 2:
 		spawn"_powerup(random.randint(0, window.width))"""
 label = pyglet.text.Label('Game Over',
@@ -131,11 +132,19 @@ label = pyglet.text.Label('Game Over',
                           font_size=36,
                           x=window.width//2, y=window.height//2,
                           anchor_x='center', anchor_y='center')
+
+yaymars = pyglet.text.Label('Yay Mars',
+                            font_name="Inconsolata",
+                            font_size=36,
+                            x=window.width//2, y=window.height//2,
+                            anchor_x='center', anchor_y='center')
 @window.event
 def on_draw():
     window.clear()
     if entities[0].affiliation != entity.PLAYER:
         label.draw()
+    elif music.clusters == []:
+        yaymars.draw()
     else:
     	batch.draw()
 song = pyglet.media.load(sys.argv[1], streaming=False)
