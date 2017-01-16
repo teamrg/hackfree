@@ -1,7 +1,7 @@
 import pyglet
 import random
 import sys
-
+from time import time
 import entity
 from entity import *
 import music
@@ -26,6 +26,7 @@ entities = [Entity(player_tex, entity.PLAYER, window.width / 2, window.height - 
 lives = []
 entities[0].health = 3
 bkg = []
+lastbul = 0
 
 def add_background(image):
     global bkg
@@ -43,9 +44,13 @@ def spawn_bullet(x):
     ent.velocity.y = 8
     entities.append(ent)
 def spawn_player_bullet():
-    ent = Entity(player_bullet_tex, entity.FRIENDLY, entities[0].x, entities[0].y, 8, 8)
-    ent.velocity.y = -4
-    entities.append(ent)
+    global lastbul
+    if time() - lastbul > .25:
+        ent = Entity(player_bullet_tex, entity.FRIENDLY, entities[0].x, entities[0].y, 8, 8)
+        ent.velocity.y = -4
+        entities.append(ent)
+        print(time()-lastbul)
+        lastbul = time()
 def spawn_cloud(x):
     entities.append(Entity(cloud_tex, entity.ENEMY, x, 0, 64, 48))
 def spawn_powerup(x):
